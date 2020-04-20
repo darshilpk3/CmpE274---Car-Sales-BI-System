@@ -1,0 +1,25 @@
+library(ggplot2)
+library(forecast)
+library(dplyr)
+library(tidyr)
+library(tseries)
+library(scales)
+library(plotly)
+library(treemap)
+
+car_sales <- read.csv('CarSales.csv')
+attach(car_sales)
+names(car_sales)
+
+comparison_yearly <- car_sales %>%
+  group_by(Year,Car.Type1) %>%
+  summarise(Sales=sum(Sales)) %>%
+  top_n(25,Sales) %>%
+  arrange(Year,Car.Type1,desc(Sales))
+head(comparison_yearly)
+
+comparison_yearly$year_and_cartype = paste(comparison_yearly$Car.Type1,comparison_yearly$Year)
+head(comparison_yearly)
+
+treemap(comparison_yearly,index="year_and_cartype",vSize="Sales",type="index")
+
