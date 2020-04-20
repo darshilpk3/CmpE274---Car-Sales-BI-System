@@ -1,0 +1,31 @@
+library(ggplot2)
+library(forecast)
+library(dplyr)
+library(tidyr)
+library(tseries)
+library(scales)
+library(plotly)
+
+#Set Working directory
+setwd("C:\\Users\\Chandra Mohan B S\\Desktop\\Courses\\4th_sem\\CMPE_274\\salesBi")
+
+
+sales_volume <- read.csv('CarSales.csv')
+attach(sales_volume)
+names(sales_volume)
+
+car_sales_volume <- sales_volume %>%
+  group_by(CAR.MAKE.AND.MODEL) %>%
+  summarise(Sales=sum(Sales)) %>%
+  arrange(CAR.MAKE.AND.MODEL,Sales)
+head(car_sales_volume)
+
+
+vol_plot <- ggplot(car_sales_volume, aes(x = CAR.MAKE.AND.MODEL, y = Sales, fill=Sales))+ 
+      geom_bar(stat="identity") + 
+      scale_fill_continuous() +
+      labs(x ="Car Make and Model", y = "Sales", title="Sales Volume by Car Model",
+           caption="Source: Alternative Fuels Data (https://afdc.energy.gov/data/10567)") +
+      theme(axis.text.x = element_text(size = 8, angle=90, vjust=0.6), panel.grid.major = element_blank())
+ggplotly(vol_plot)
+
