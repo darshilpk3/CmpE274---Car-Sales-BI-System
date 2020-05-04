@@ -1,0 +1,12 @@
+name: Car-Sales-BI-System
+title: Car-Sales-BI-System
+username:
+account: darshilsjsu
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2154296
+bundleId: 3041705
+url: https://darshilsjsu.shinyapps.io/Car-Sales-BI-System/
+when: 1587429238.25073
+asMultiple: FALSE
+asStatic: FALSE
